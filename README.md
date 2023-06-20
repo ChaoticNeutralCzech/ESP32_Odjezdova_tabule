@@ -1,6 +1,12 @@
 # ESP32_Odjezdova_tabule
 
-Goal: Displays a table of train departures/arrivals stylized to look like an Elektročas board but at a smaller scale. Uses the ESP32's Wi-Fi capabilities to fetch up-to-date data from m.vitamin.spravazeleznic.cz (API also used by SŽDC's [official Android app](https://play.google.com/store/apps/details?id=cz.cdis.vitamin&hl=en_US)). Settings are adujsted in a HTML page from a Wi-Fi-enabled device.
+**Goal:** A tabletop or wall-mounted display for a railway fan's room or train station model. A small screen shows a table of train departures/arrivals stylized to look like an Elektročas board but at a smaller scale. Uses the ESP32's Wi-Fi capabilities to fetch up-to-date data from m.vitamin.spravazeleznic.cz (API also used by SŽDC's [official Android app](https://play.google.com/store/apps/details?id=cz.cdis.vitamin&hl=en_US)). Settings are adujsted in a HTML page from a Wi-Fi-enabled device.
+
+Version 1.0, the minimum viable product, should imitate this screen at Uherské Hradiště railway station  
+![](https://d34-a.sdn.cz/d_34/c_img_QQ_y/th6ID0.jpeg) ![](https://raw.githubusercontent.com/ChaoticNeutralCzech/myRandomImages/main/ytyGax.jpg)  
+by showing the following on the display:  
+![](https://raw.githubusercontent.com/ChaoticNeutralCzech/myRandomImages/main/Odjezdy_UH_PoC3.gif)  
+("DEMO" because this very much does not actually work yet.)
 
 ### Hardware:
 
@@ -11,7 +17,7 @@ Goal: Displays a table of train departures/arrivals stylized to look like an Ele
 
 ## This is a work in progress!
 
-The project does not work yet.
+The project does not work yet. Really, not at all. It's been a nightmare developing this for effing 6 weeks and seeing so little progress while facing countless errors and issues. Burnout, yeah!
 
 So far, the capabilities of the Wi-Fi client (clock sync over NTP and querying the API), ADC/DAC and LCD library are being tested: the current version will only
 
