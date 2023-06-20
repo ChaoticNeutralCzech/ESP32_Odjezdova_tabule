@@ -1,0 +1,712 @@
+[0] Agency FB
+[1] Agency FB Bold
+[2] Agency FB tučné
+[3] Aharoni Bold
+[4] Aharoni tučné
+[5] Aldhabi
+[6] Algerian
+[7] Andalus
+[8] Angsana New
+[9] Angsana New Bold
+[10] Angsana New Bold Italic
+[11] Angsana New Italic
+[12] Angsana New kurzíva
+[13] Angsana New tučné
+[14] Angsana New tučné kurzíva
+[15] AngsanaUPC
+[16] AngsanaUPC Bold
+[17] AngsanaUPC Bold Italic
+[18] AngsanaUPC Italic
+[19] AngsanaUPC kurzíva
+[20] AngsanaUPC tučné
+[21] AngsanaUPC tučné kurzíva
+[22] Aparajita
+[23] Aparajita Bold
+[24] Aparajita Bold Italic
+[25] Aparajita Italic
+[26] Aparajita kurzíva
+[27] Aparajita tučné
+[28] Aparajita tučné kurzíva
+[29] Arabic Typesetting
+[30] Arial
+[31] Arial Black
+[32] Arial Black obyčejné
+[33] Arial Bold
+[34] Arial Bold Italic
+[35] Arial Italic
+[36] Arial Narrow
+[37] Arial Narrow Bold
+[38] Arial Narrow Bold Italic
+[39] Arial Narrow Italic
+[40] Arial Narrow kurzíva
+[41] Arial Narrow tučné
+[42] Arial Narrow tučné kurzíva
+[43] Arial Rounded MT Bold
+[44] Arial kurzíva
+[45] Arial tučné
+[46] Arial tučné kurzíva
+[47] AvenirLTStd-Roman
+[48] Bahnschrift
+[49] Baskerville Old Face
+[50] Batang
+[51] BatangChe
+[52] Bauhaus 93
+[53] Bell MT
+[54] Bell MT Bold
+[55] Bell MT Italic
+[56] Bell MT kurzíva
+[57] Bell MT tučné
+[58] Berlin Sans FB
+[59] Berlin Sans FB Bold
+[60] Berlin Sans FB Demi Bold
+[61] Berlin Sans FB Demi tučné
+[62] Berlin Sans FB tučné
+[63] Bernard MT Condensed
+[64] Blackadder ITC
+[65] Bodoni MT
+[66] Bodoni MT Black
+[67] Bodoni MT Black Italic
+[68] Bodoni MT Black kurzíva
+[69] Bodoni MT Bold
+[70] Bodoni MT Bold Italic
+[71] Bodoni MT Condensed
+[72] Bodoni MT Condensed Bold
+[73] Bodoni MT Condensed Bold Italic
+[74] Bodoni MT Condensed Italic
+[75] Bodoni MT Condensed kurzíva
+[76] Bodoni MT Condensed tučné
+[77] Bodoni MT Condensed tučné kurzíva
+[78] Bodoni MT Italic
+[79] Bodoni MT Poster Compressed
+[80] Bodoni MT kurzíva
+[81] Bodoni MT tučné
+[82] Bodoni MT tučné kurzíva
+[83] Book Antiqua
+[84] Book Antiqua Bold
+[85] Book Antiqua Bold Italic
+[86] Book Antiqua Italic
+[87] Book Antiqua kurzíva
+[88] Book Antiqua tučné
+[89] Book Antiqua tučné kurzíva
+[90] Bookman Old Style
+[91] Bookman Old Style Bold
+[92] Bookman Old Style Bold Italic
+[93] Bookman Old Style Italic
+[94] Bookman Old Style kurzíva
+[95] Bookman Old Style tučné
+[96] Bookman Old Style tučné kurzíva
+[97] Bookshelf Symbol 7
+[98] Bradley Hand ITC
+[99] Britannic Bold
+[100] Broadway
+[101] Browallia New
+[102] Browallia New Bold
+[103] Browallia New Bold Italic
+[104] Browallia New Italic
+[105] BrowalliaUPC
+[106] BrowalliaUPC Bold
+[107] BrowalliaUPC Bold Italic
+[108] BrowalliaUPC Italic
+[109] Brush Script MT Italic
+[110] Brush Script MT kurzíva
+[111] Calibri
+[112] Calibri Bold
+[113] Calibri Bold Italic
+[114] Calibri Italic
+[115] Calibri Light
+[116] Calibri Light Italic
+[117] Californian FB
+[118] Californian FB Bold
+[119] Californian FB Italic
+[120] Californian FB kurzíva
+[121] Californian FB tučné
+[122] Calisto MT
+[123] Calisto MT Bold
+[124] Calisto MT Bold Italic
+[125] Calisto MT Italic
+[126] Calisto MT kurzíva
+[127] Calisto MT tučné
+[128] Calisto MT tučné kurzíva
+[129] Cambria
+[130] Cambria Bold
+[131] Cambria Bold Italic
+[132] Cambria Italic
+[133] Cambria Math
+[134] Candara
+[135] Candara Bold
+[136] Candara Bold Italic
+[137] Candara Italic
+[138] Castellar
+[139] Centaur
+[140] Century
+[141] Century Gothic
+[142] Century Gothic Bold
+[143] Century Gothic Bold Italic
+[144] Century Gothic Italic
+[145] Century Gothic kurzíva
+[146] Century Gothic tučné
+[147] Century Gothic tučné kurzíva
+[148] Century Schoolbook
+[149] Century Schoolbook Bold
+[150] Century Schoolbook Bold Italic
+[151] Century Schoolbook Italic
+[152] Century Schoolbook kurzíva
+[153] Century Schoolbook tučné
+[154] Century Schoolbook tučné kurzíva
+[155] Chiller
+[156] Colonna MT
+[157] Comic Sans MS
+[158] Comic Sans MS Bold
+[159] Comic Sans MS Bold Italic
+[160] Comic Sans MS Italic
+[161] Comic Sans MS kurzíva
+[162] Comic Sans MS tučné
+[163] Comic Sans MS tučné kurzíva
+[164] Consolas
+[165] Consolas Bold
+[166] Consolas Bold Italic
+[167] Consolas Italic
+[168] Constantia
+[169] Constantia Bold
+[170] Constantia Bold Italic
+[171] Constantia Italic
+[172] Cooper Black
+[173] Copperplate Gothic Bold
+[174] Copperplate Gothic Light
+[175] Corbel
+[176] Corbel Bold
+[177] Corbel Bold Italic
+[178] Corbel Italic
+[179] Cordia New
+[180] Cordia New Bold
+[181] Cordia New Bold Italic
+[182] Cordia New Italic
+[183] CordiaUPC
+[184] CordiaUPC Bold
+[185] CordiaUPC Bold Italic
+[186] CordiaUPC Italic
+[187] Courier New
+[188] Courier New Bold
+[189] Courier New Bold Italic
+[190] Courier New Italic
+[191] Courier New kurzíva
+[192] Courier New tučné
+[193] Courier New tučné kurzíva
+[194] Curlz MT
+[195] DBSans-Regular
+[196] DFKai-SB
+[197] DaunPenh
+[198] David
+[199] David Bold
+[200] Dialog.bold
+[201] Dialog.bolditalic
+[202] Dialog.italic
+[203] Dialog.plain
+[204] DialogInput.bold
+[205] DialogInput.bolditalic
+[206] DialogInput.italic
+[207] DialogInput.plain
+[208] DilleniaUPC
+[209] DilleniaUPC Bold
+[210] DilleniaUPC Bold Italic
+[211] DilleniaUPC Italic
+[212] DilleniaUPC kurzíva
+[213] DilleniaUPC tučné
+[214] DilleniaUPC tučné kurzíva
+[215] DokChampa
+[216] Dotum
+[217] DotumChe
+[218] Dubai Bold
+[219] Dubai Light
+[220] Dubai Medium
+[221] Dubai Regular
+[222] Ebrima
+[223] Ebrima Bold
+[224] Ebrima tučné
+[225] Edwardian Script ITC
+[226] Elephant
+[227] Elephant Italic
+[228] Elephant kurzíva
+[229] Engravers MT
+[230] Eras Bold ITC
+[231] Eras Demi ITC
+[232] Eras Light ITC
+[233] Eras Medium ITC
+[234] Estrangelo Edessa
+[235] EucrosiaUPC
+[236] EucrosiaUPC Bold
+[237] EucrosiaUPC Bold Italic
+[238] EucrosiaUPC Italic
+[239] EucrosiaUPC kurzíva
+[240] EucrosiaUPC tučné
+[241] EucrosiaUPC tučné kurzíva
+[242] Euphemia
+[243] FangSong
+[244] Felix Titling
+[245] Footlight MT Light
+[246] Forte
+[247] FrankRuehl
+[248] Franklin Gothic Book
+[249] Franklin Gothic Book Italic
+[250] Franklin Gothic Book kurzíva
+[251] Franklin Gothic Demi
+[252] Franklin Gothic Demi Cond
+[253] Franklin Gothic Demi Italic
+[254] Franklin Gothic Demi kurzíva
+[255] Franklin Gothic Heavy
+[256] Franklin Gothic Heavy Italic
+[257] Franklin Gothic Heavy kurzíva
+[258] Franklin Gothic Medium
+[259] Franklin Gothic Medium Cond
+[260] Franklin Gothic Medium Italic
+[261] Franklin Gothic Medium kurzíva
+[262] FreesiaUPC
+[263] FreesiaUPC Bold
+[264] FreesiaUPC Bold Italic
+[265] FreesiaUPC Italic
+[266] Freestyle Script
+[267] French Script MT
+[268] Gabriola
+[269] Gadugi
+[270] Gadugi Bold
+[271] Gadugi tučné
+[272] Garamond
+[273] Garamond Bold
+[274] Garamond Italic
+[275] Garamond kurzíva
+[276] Garamond tučné
+[277] GaramondSerial
+[278] Gautami
+[279] Gautami Bold
+[280] Gautami tučné
+[281] GeaT
+[282] GeaThin
+[283] Georgia
+[284] Georgia Bold
+[285] Georgia Bold Italic
+[286] Georgia Italic
+[287] Georgia kurzíva
+[288] Georgia tučné
+[289] Georgia tučné kurzíva
+[290] Gigi
+[291] Gill Sans MT
+[292] Gill Sans MT Bold
+[293] Gill Sans MT Bold Italic
+[294] Gill Sans MT Condensed
+[295] Gill Sans MT Ext Condensed Bold
+[296] Gill Sans MT Italic
+[297] Gill Sans MT kurzíva
+[298] Gill Sans MT tučné
+[299] Gill Sans MT tučné kurzíva
+[300] Gill Sans Ultra Bold
+[301] Gill Sans Ultra Bold Condensed
+[302] Gisha
+[303] Gisha Bold
+[304] Gisha tučné
+[305] Gloucester MT Extra Condensed
+[306] Goudy Old Style
+[307] Goudy Old Style Bold
+[308] Goudy Old Style Italic
+[309] Goudy Old Style kurzíva
+[310] Goudy Old Style tučné
+[311] Goudy Stout
+[312] Gulim
+[313] GulimChe
+[314] Gungsuh
+[315] GungsuhChe
+[316] Haettenschweiler
+[317] Harlow Solid Italic
+[318] Harrington
+[319] High Tower Text
+[320] High Tower Text Italic
+[321] High Tower Text kurzíva
+[322] Impact
+[323] Imprint MT Shadow
+[324] Informal Roman
+[325] IrisUPC
+[326] IrisUPC Bold
+[327] IrisUPC Bold Italic
+[328] IrisUPC Italic
+[329] Iskoola Pota
+[330] Iskoola Pota Bold
+[331] Iskoola Pota tučné
+[332] JasmineUPC
+[333] JasmineUPC Bold
+[334] JasmineUPC Bold Italic
+[335] JasmineUPC Italic
+[336] Javanese Text
+[337] Jokerman
+[338] Juice ITC
+[339] KaiTi
+[340] Kalinga
+[341] Kalinga Bold
+[342] Kalinga tučné
+[343] Kartika
+[344] Kartika Bold
+[345] Kartika tučné
+[346] Khmer UI
+[347] Khmer UI Bold
+[348] Khmer UI tučné
+[349] Kievit Offc Pro
+[350] KodchiangUPC
+[351] KodchiangUPC Bold
+[352] KodchiangUPC Bold Italic
+[353] KodchiangUPC Italic
+[354] Kokila
+[355] Kokila Bold
+[356] Kokila Bold Italic
+[357] Kokila Italic
+[358] Kokila kurzíva
+[359] Kokila tučné
+[360] Kokila tučné kurzíva
+[361] Kristen ITC
+[362] Kunstler Script
+[363] Lao UI
+[364] Lao UI Bold
+[365] Lao UI tučné
+[366] Latha
+[367] Latha Bold
+[368] Latha tučné
+[369] Leelawadee
+[370] Leelawadee Bold
+[371] Leelawadee UI
+[372] Leelawadee UI Bold
+[373] Leelawadee UI Semilight
+[374] Leelawadee UI Semilight obyčejné
+[375] Leelawadee UI tučné
+[376] Leelawadee tučné
+[377] Levenim MT
+[378] Levenim MT Bold
+[379] LilyUPC
+[380] LilyUPC Bold
+[381] LilyUPC Bold Italic
+[382] LilyUPC Italic
+[383] Lucida Bright
+[384] Lucida Bright Demibold
+[385] Lucida Bright Demibold Italic
+[386] Lucida Bright Italic
+[387] Lucida Calligraphy Italic
+[388] Lucida Console
+[389] Lucida Fax Demibold
+[390] Lucida Fax Demibold Italic
+[391] Lucida Fax Italic
+[392] Lucida Fax Regular
+[393] Lucida Handwriting Italic
+[394] Lucida Sans Demibold Italic
+[395] Lucida Sans Demibold Roman
+[396] Lucida Sans Italic
+[397] Lucida Sans Regular
+[398] Lucida Sans Typewriter Bold
+[399] Lucida Sans Typewriter Bold Oblique
+[400] Lucida Sans Typewriter Oblique
+[401] Lucida Sans Typewriter Regular
+[402] Lucida Sans Unicode
+[403] MS Gothic
+[404] MS Mincho
+[405] MS Outlook
+[406] MS PGothic
+[407] MS PMincho
+[408] MS Reference Sans Serif
+[409] MS Reference Specialty
+[410] MS UI Gothic
+[411] MT Extra
+[412] MV Boli
+[413] Magneto Bold
+[414] Magneto tučné
+[415] Maiandra GD
+[416] Malgun Gothic
+[417] Malgun Gothic Bold
+[418] Mangal
+[419] Mangal Bold
+[420] Mangal tučné
+[421] Marlett
+[422] Matura MT Script Capitals
+[423] Meiryo
+[424] Meiryo Bold
+[425] Meiryo UI
+[426] Meiryo UI kurzíva
+[427] Meiryo UI tučné
+[428] Meiryo UI tučné kurzíva
+[429] Meiryo kurzíva
+[430] Meiryo tučné
+[431] Meiryo tučné kurzíva
+[432] Microsoft Himalaya
+[433] Microsoft JhengHei
+[434] Microsoft JhengHei Bold
+[435] Microsoft JhengHei Light
+[436] Microsoft JhengHei UI
+[437] Microsoft JhengHei UI Light
+[438] Microsoft JhengHei UI tučné
+[439] Microsoft JhengHei tučné
+[440] Microsoft New Tai Lue
+[441] Microsoft New Tai Lue Bold
+[442] Microsoft New Tai Lue tučné
+[443] Microsoft PhagsPa
+[444] Microsoft PhagsPa Bold
+[445] Microsoft PhagsPa tučné
+[446] Microsoft Sans Serif
+[447] Microsoft Tai Le
+[448] Microsoft Tai Le Bold
+[449] Microsoft Tai Le tučné
+[450] Microsoft Uighur
+[451] Microsoft Uighur Bold
+[452] Microsoft Uighur tučné
+[453] Microsoft YaHei
+[454] Microsoft YaHei Bold
+[455] Microsoft YaHei Light
+[456] Microsoft YaHei UI
+[457] Microsoft YaHei UI Light
+[458] Microsoft YaHei UI tučné
+[459] Microsoft YaHei tučné
+[460] Microsoft Yi Baiti
+[461] MingLiU
+[462] MingLiU-ExtB
+[463] MingLiU_HKSCS
+[464] MingLiU_HKSCS-ExtB
+[465] Miriam
+[466] Miriam Fixed
+[467] Mistral
+[468] Modern No. 20
+[469] Mongolian Baiti
+[470] Monospaced.bold
+[471] Monospaced.bolditalic
+[472] Monospaced.italic
+[473] Monospaced.plain
+[474] Monotype Corsiva
+[475] Montserrat Light
+[476] Montserrat Medium
+[477] Montserrat Regular
+[478] Montserrat Thin
+[479] MoolBoran
+[480] Myanmar Text
+[481] Myanmar Text Bold
+[482] Myanmar Text tučné
+[483] NSimSun
+[484] Narkisim
+[485] Niagara Engraved
+[486] Niagara Solid
+[487] NimbusSanL-Bol
+[488] NimbusSanL-BolIta
+[489] NimbusSanL-Reg
+[490] NimbusSanL-RegIta
+[491] Nirmala UI
+[492] Nirmala UI Bold
+[493] Nirmala UI Semilight
+[494] Nirmala UI tučné
+[495] Nyala
+[496] OCR A Extended
+[497] Old English Text MT
+[498] Onyx
+[499] Open Sans
+[500] Open Sans Semibold
+[501] PMingLiU
+[502] PMingLiU-ExtB
+[503] Palace Script MT
+[504] Palatino Linotype
+[505] Palatino Linotype Bold
+[506] Palatino Linotype Bold Italic
+[507] Palatino Linotype Italic
+[508] Palatino Linotype kurzíva
+[509] Palatino Linotype tučné
+[510] Palatino Linotype tučné kurzíva
+[511] Papyrus
+[512] Parchment
+[513] Perpetua
+[514] Perpetua Bold
+[515] Perpetua Bold Italic
+[516] Perpetua Italic
+[517] Perpetua Titling MT Bold
+[518] Perpetua Titling MT Light
+[519] Perpetua Titling MT tučné
+[520] Perpetua kurzíva
+[521] Perpetua tučné
+[522] Perpetua tučné kurzíva
+[523] Plantagenet Cherokee
+[524] Playbill
+[525] Poor Richard
+[526] Pristina
+[527] Raavi
+[528] Raavi Bold
+[529] Raavi tučné
+[530] Rage Italic
+[531] Ravie
+[532] Rockwell
+[533] Rockwell Bold
+[534] Rockwell Bold Italic
+[535] Rockwell Condensed
+[536] Rockwell Condensed Bold
+[537] Rockwell Condensed tučné
+[538] Rockwell Extra Bold
+[539] Rockwell Italic
+[540] Rockwell kurzíva
+[541] Rockwell tučné
+[542] Rockwell tučné kurzíva
+[543] Rod
+[544] Sakkal Majalla
+[545] Sakkal Majalla Bold
+[546] Sakkal Majalla tučné
+[547] SansSerif.bold
+[548] SansSerif.bolditalic
+[549] SansSerif.italic
+[550] SansSerif.plain
+[551] Script MT Bold
+[552] Segoe Print
+[553] Segoe Print Bold
+[554] Segoe Script
+[555] Segoe Script Bold
+[556] Segoe UI
+[557] Segoe UI Black
+[558] Segoe UI Black Italic
+[559] Segoe UI Bold
+[560] Segoe UI Bold Italic
+[561] Segoe UI Emoji
+[562] Segoe UI Italic
+[563] Segoe UI Light
+[564] Segoe UI Light Italic
+[565] Segoe UI Semibold
+[566] Segoe UI Semibold Italic
+[567] Segoe UI Semilight
+[568] Segoe UI Semilight Italic
+[569] Segoe UI Symbol
+[570] Segoe UI kurzíva
+[571] Segoe UI tučné
+[572] Segoe UI tučné kurzíva
+[573] Serif.bold
+[574] Serif.bolditalic
+[575] Serif.italic
+[576] Serif.plain
+[577] Shonar Bangla
+[578] Shonar Bangla Bold
+[579] Shonar Bangla tučné
+[580] Showcard Gothic
+[581] Shruti
+[582] Shruti Bold
+[583] Shruti tučné
+[584] SimHei
+[585] SimSun
+[586] SimSun-ExtB
+[587] Simplified Arabic
+[588] Simplified Arabic Bold
+[589] Simplified Arabic Fixed
+[590] Simplified Arabic tučné
+[591] Sitka Banner
+[592] Sitka Banner Bold
+[593] Sitka Banner Bold Italic
+[594] Sitka Banner Italic
+[595] Sitka Display
+[596] Sitka Display Bold
+[597] Sitka Display Bold Italic
+[598] Sitka Display Italic
+[599] Sitka Heading
+[600] Sitka Heading Bold
+[601] Sitka Heading Bold Italic
+[602] Sitka Heading Italic
+[603] Sitka Small
+[604] Sitka Small Bold
+[605] Sitka Small Bold Italic
+[606] Sitka Small Italic
+[607] Sitka Subheading
+[608] Sitka Subheading Bold
+[609] Sitka Subheading Bold Italic
+[610] Sitka Subheading Italic
+[611] Sitka Text
+[612] Sitka Text Bold
+[613] Sitka Text Bold Italic
+[614] Sitka Text Italic
+[615] Snap ITC
+[616] Stencil
+[617] Sylfaen
+[618] Symbol
+[619] TI Uni
+[620] TI Uni Bold
+[621] TI-83p Mini Sans
+[622] TI-92p Mini Sans
+[623] Tahoma
+[624] Tahoma Bold
+[625] Tahoma tučné
+[626] Tempus Sans ITC
+[627] Ti73ProgCodeBold
+[628] Ti73ProgCodeN
+[629] Ti83Pluspc
+[630] Ti83PluspcBd
+[631] Ti83ProgCodeBold
+[632] Ti83ProgCodeN
+[633] Ti86Pc
+[634] Ti86PcBold
+[635] Ti89pc
+[636] Ti89pcbd
+[637] Ti92Pluspc
+[638] Ti92Pluspcbd
+[639] Times New Roman
+[640] Times New Roman Bold
+[641] Times New Roman Bold Italic
+[642] Times New Roman Italic
+[643] Times New Roman kurzíva
+[644] Times New Roman tučné
+[645] Times New Roman tučné kurzíva
+[646] Traditional Arabic
+[647] Traditional Arabic Bold
+[648] Traditional Arabic tučné
+[649] Trebuchet MS
+[650] Trebuchet MS Bold
+[651] Trebuchet MS Bold Italic
+[652] Trebuchet MS Italic
+[653] Trebuchet MS kurzíva
+[654] Trebuchet MS tučné
+[655] Trebuchet MS tučné kurzíva
+[656] Tunga
+[657] Tunga Bold
+[658] Tunga tučné
+[659] Tw Cen MT
+[660] Tw Cen MT Bold
+[661] Tw Cen MT Bold Italic
+[662] Tw Cen MT Condensed
+[663] Tw Cen MT Condensed Bold
+[664] Tw Cen MT Condensed Extra Bold
+[665] Tw Cen MT Condensed tučné
+[666] Tw Cen MT Italic
+[667] Tw Cen MT kurzíva
+[668] Tw Cen MT tučné
+[669] Tw Cen MT tučné kurzíva
+[670] Urdu Typesetting
+[671] Urdu Typesetting Bold
+[672] Urdu Typesetting tučné
+[673] Utsaah
+[674] Utsaah Bold
+[675] Utsaah Bold Italic
+[676] Utsaah Italic
+[677] Utsaah kurzíva
+[678] Utsaah tučné
+[679] Utsaah tučné kurzíva
+[680] Vani
+[681] Vani Bold
+[682] Vani tučné
+[683] Verdana
+[684] Verdana Bold
+[685] Verdana Bold Italic
+[686] Verdana Italic
+[687] Verdana kurzíva
+[688] Verdana tučné
+[689] Verdana tučné kurzíva
+[690] Vijaya
+[691] Vijaya Bold
+[692] Vijaya tučné
+[693] Viner Hand ITC
+[694] Vivaldi Italic
+[695] Vivaldi kurzíva
+[696] Vladimir Script
+[697] Vrinda
+[698] Vrinda Bold
+[699] Vrinda tučné
+[700] Webdings
+[701] Wide Latin
+[702] Wingdings
+[703] Wingdings 2
+[704] Wingdings 3
+[705] Yu Gothic Bold
+[706] Yu Gothic Light
+[707] Yu Gothic Regular
+[708] Yu Mincho Demibold
+[709] Yu Mincho Light
+[710] Yu Mincho Regular
+[711] ZWAdobeF

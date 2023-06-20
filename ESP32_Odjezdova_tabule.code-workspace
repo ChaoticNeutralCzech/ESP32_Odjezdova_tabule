@@ -1,0 +1,45 @@
+{
+	"folders": [
+		{
+			"path": "../TestingESP32"
+		},
+		{
+			"name": "ESP8266test",
+			"path": "../ESP8266test"
+		},
+		{
+			"name": "ESP32_V-EEPROM",
+			"path": "../ESP32_V-EEPROM"
+		},
+		{
+			"name": "ESP_sleep_test",
+			"path": "../ESP_sleep_test"
+		},
+		{
+			"name": "esp32_multithreading",
+			"path": "../esp32_multithreading"
+		},
+		{
+			"name": "Esp32_Wi-Fi_test",
+			"path": "../Esp32_Wi-Fi_test"
+		},
+		{
+			"name": "ESP32_Odjezdova_tabule",
+			"path": "."
+		},
+		{
+			"name": "ESP32_test_AP",
+			"path": "../ESP32_test_AP"
+		},
+		{
+			"name": "Testing172LCD",
+			"path": "../Testing172LCD"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"bitset": "cpp",
+			"prijezdy_pce_poc.c": "cpp"
+		}
+	}
+}

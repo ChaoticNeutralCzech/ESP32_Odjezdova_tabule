@@ -1,0 +1,200 @@
+//#include <../lib/uzlib/src/uzlib.h>
+//#include <../lib/ESP32-targz/src/ESP32-targz-lib.hpp>
+//#include "Odjezdy_UH_PoC.h" //temp image for testing
+
+  /*
+  marqueeLine.setFreeFont(ELEKTROCAS8);
+  marqueeLine.setTextColor(1, 0);
+  marqueeLine.setColorDepth(1);
+  marqueeLine.createSprite(marqueeSpaceWidth, 13);
+  marqueeLine.setBitmapColor(0x403F, TFT_WHITE);
+  marqueeLine.fillSprite(0);
+  marqueeLength=marqueeLine.textWidth(marquee);
+  */
+  //tft.pushImage(0, 0, 320, 170, Odjezdy_UH_PoC);
+
+
+/*WiFi.disconnect(true);  //disconnect WiFi when it's no longer needed
+  WiFi.mode(WIFI_OFF); */
+
+  /*
+    client.print(tempStation); //1-4digit station code
+    if (tempArrival) client.print("&Arr=1"); //specifies if arrivals are being requested
+    client.print(httpRequestHeaders); 
+    client.println("328");
+ //   client.println("content-type: application/x-www-form-urlencoded");
+    client.println();
+    client.println(httpRequestData);
+*/
+
+      /*
+      if (length) {
+        length++;
+        if (c == 92 || c == '<') {
+          if (length > 2 || c == '<') {
+            Serial.print(listened);
+            Serial.print(";");
+          }
+          length = 0;
+          listened = "";
+          if(client.read() == 't' && (client.read() == 'r' || client.read() == 'o')) //<tr or <t*o detection = new table row!
+          {
+            Serial.print("\n");
+          }
+        } else {
+          listened += c;
+        }
+      }
+      */ 
+
+/*
+    Serial.print("\nHeaders over, now receiving data... ");
+    while (client.connected()) {
+      if (c != 0) Serial.print(c);
+      receivedData[receivedLength] = c;
+      prev_c = c;
+      c = client.read();
+      receivedLength++;
+
+    }*/
+
+
+    /*
+    TINF_DATA decompress_nodict = {
+      .source = receivedData,
+      .dest = unzipData
+    };
+    uzlib_init();
+    int res = uzlib_gzip_parse_header(&decompress_nodict);
+    if (res != TINF_OK) {
+      Serial.print("[ERROR] uzlib_gzip_parse_header failed - response code ");
+      Serial.println(res);
+      return;
+    }
+    uzlib_uncompress_init(&decompress_nodict, NULL, 0);
+    
+    const size_t output_buffer_size = 4096; // at least 1KB, at most 4KB
+    uint8_t output_buffer[output_buffer_size]; // output buffer
+    size_t total_size = 0;
+    size_t output_position = 0;
+    res = TINF_OK;
+
+    do {
+        decompress_nodict.dest = &output_buffer[output_position];
+        res = uzlib_uncompress_chksum(&decompress_nodict);
+        if (res != TINF_OK) break; // uncompress done or aborted, no need to go further
+        output_position++;
+        if (output_position == output_buffer_size) {  // when destination buffer is filled, write/stream it
+          total_size += output_buffer_size;
+          Serial.print("[INFO] Buffer full, now writing ");
+          Serial.print(output_buffer_size);
+          Serial.print("bytes of total");
+          Serial.println(total_size);
+          for (int i=0; i < output_buffer_size; i++)
+          {
+            Serial.print(output_buffer[i]);
+          }
+          output_position = 0;
+        }
+    } while ( res == TINF_OK );
+
+    if (res != TINF_DONE && decompress_nodict.readSourceErrors > 0 ) {
+        Serial.print("Decompression failed, errors: ");
+        //Serial.println(decompress_nodict.readSourceErrors);
+        return;
+    }
+
+    // consume remaining bytes in the buffer, if any
+    if( output_position !=0 ) 
+    {
+      for (int i=0; i < output_position; i++)
+          {
+            Serial.print(output_buffer[i]);
+          }
+    }
+*/
+
+
+void dnstest (char * name)
+{
+    IPAddress ipaddr;
+    int ret;
+    ret = WiFi.hostByName (name, ipaddr);
+    Serial.printf("hostbyname% s ret =% d% s \n", name, ret, ipaddr.toString ());
+}
+
+/*
+struct settings {
+  bool notesAllowed;            //are note lines allowed?
+  int arrival;                  //0=departure; 1=arrival
+  int stationID;                
+  String stationName = "\0                                         "; 
+                                //43 bytes, must fit "Kamenný Újezd u Českých Budějovic zastávka"
+  int viaMax;                   //some IRL boards only support like 2 via stations, pathetic; we support 6 in this ver
+                                //ENV 13998 recommends no more than 4 for alternating display
+  int trainTypeX;
+  int trainTypeLightX;          //train type light X-position
+  int trainNumberX;
+  int trainLineX;
+  int trainCompanyX;
+//int trainNameX; not implemented!
+  int schTimeX;
+  int actTimeX;
+  int delayStringX;
+  int lineY[6];                 //we only have 6 lines rn, sorry: only 16 kB can be Xfrd over HTTPS w/o use of GZIP
+  int clockType;                //rn, only 0=none; 1=GeaThinHalf (9pt)
+  int clockX;
+  int clockY;
+};
+
+struct tableLine {
+  bool isNote;                  //if allowed, some lines are actually notes 
+  String note;
+  String trainType = "\0  ";    //allocates 3 chars (4 B) for the train type
+  String trainNumber = "\0     "; //allocates 6 chars (7 B) for the train number 
+  String trainLine = "\0   ";   //allocates 4 chars (5 B) for the train line
+  String trainCompany = "\0   "; //allocates 4 chars (5 B) for the train company
+  String trainName; 
+  String schTime = "\0    ";    //allocates 5 chars (6 B) for scheduled time
+  String actTime = "\0    ";    //allocates 5 chars (6 B) for actual time 
+  int schTimeMin;
+  int actTimeMin;
+  int delayMin;
+  String delayString;           //could be NEJEDE/BUS/- for all we know lol
+  String terminus;
+  String via[6];                //there never seem to be more than 6 via stations on the website
+  int viaNum;
+  int viaState;
+  String platform = "\0     ";
+  String track = "\0     ";
+} table[6];
+
+enum speed {
+  slow, fast, city
+};
+
+void printLine(tableLine thisLine){
+  if (thisLine.isNote)
+  {
+
+  }
+};
+*/
+
+
+
+    bool listening = false;
+    String listened = "";
+
+    
+
+    /*
+    receivedData[receivedLength] = c;
+    prev_c = c;
+    c = client.read();
+    receivedLength++;
+    if (c == 255) break;
+    if(prev_c == '\n' && c == '\n' ) break;
+    if (c == '*') {receivingMarquee = !receivingMarquee; Serial.print("\n\n");}
+    if (receivingMarquee) marquee += c;
+    if (c == 255) break;*/
