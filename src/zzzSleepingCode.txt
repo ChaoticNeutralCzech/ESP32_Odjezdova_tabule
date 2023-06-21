@@ -128,8 +128,8 @@ struct settings {
   bool notesAllowed;            //are note lines allowed?
   int arrival;                  //0=departure; 1=arrival
   int stationID;                
-  String stationName = "\0                                         "; 
-                                //43 bytes, must fit "Kamenný Újezd u Českých Budějovic zastávka"
+  String stationName = "\0                                                "; 
+                                //50 bytes, must fit "Kamenný Újezd u Českých Budějovic zastávka"
   int viaMax;                   //some IRL boards only support like 2 via stations, pathetic; we support 6 in this ver
                                 //ENV 13998 recommends no more than 4 for alternating display
   int trainTypeX;
@@ -189,6 +189,7 @@ void printLine(tableLine thisLine){
     
 
     /*
+    bool receivingMarquee = false;
     receivedData[receivedLength] = c;
     prev_c = c;
     c = client.read();
@@ -198,3 +199,9 @@ void printLine(tableLine thisLine){
     if (c == '*') {receivingMarquee = !receivingMarquee; Serial.print("\n\n");}
     if (receivingMarquee) marquee += c;
     if (c == 255) break;*/
+
+       /*for (int i=0; i<16384; i++)
+    {
+      if (!receivedData[i]) break;
+      Serial.print(receivedData[i]);
+    }*/

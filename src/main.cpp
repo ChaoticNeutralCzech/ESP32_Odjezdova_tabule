@@ -3,13 +3,14 @@
 #include "brightnessRoutines.hpp"
 #include "displayRoutines.hpp"
 #include "networkRoutines.hpp"
+#include "settingsRoutines.hpp"
 //#include "../lib/ArduinoJson-v6.21.2.hpp"
 #include <ArduinoJson.h>
 
 const char* downloadedPage[16384];
 char tempStation[10] = "5453613"; //temporary: the actual station code will be settable in the browser GUI
 char tempAD[10] = DEP;   //temporary: the actual arrival control will be part of the settings class
-
+String sname;
 void setup()
 {
   setupPins();
@@ -17,12 +18,13 @@ void setup()
   connectToWifi();
 
   setupDisplay();
-  tft.drawString("Stanice Kamenný Újezd u Českých Budějovic zastávka", 16, 0, GFXFF);
+  
   tft.drawString("Příliš žluťoučký kůň úpěl ďábelské ódy.", 16, 40, GFXFF);
-  tft.drawString("Vypätá dcéra grófa Maxwella s IQ nižším ako kôň núti čeľaď hrýzť hŕbu jabĺk.", 16, 53, GFXFF);
-  tft.drawString("Stróż pchnął kość w quiz gędźb vel fax myjń.", 16, 66, GFXFF);
-  tft.drawString("Jörg bäckt quasi zwei Haxenfüße vom Wildpony.", 16, 79, GFXFF);
-  tft.drawString("Pál fogyó IQ-jú kun exvő, ím dühös a WC bűzért.", 16, 92, GFXFF);
+  tft.drawString("Vypätá dcéra grófa Maxwella s IQ nižším ako kôň núti ", 16, 53, GFXFF);
+  tft.drawString(" čeľaď hrýzť hŕbu jabĺk.", 16, 66, GFXFF);
+  tft.drawString("Stróż pchnął kość w quiz gędźb vel fax myjń.", 16, 79, GFXFF);
+  tft.drawString("Jörg bäckt quasi zwei Haxenfüße vom Wildpony.", 16, 92, GFXFF);
+  tft.drawString("Pál fogyó IQ-jú kun exvő, ím dühös a WC bűzért.", 16, 105, GFXFF);
   ledcSetup(PWMchannel,freq,resolution);
   ledcAttachPin(BL_pin, PWMchannel);
   ledcWrite(PWMchannel, 0);
@@ -30,7 +32,7 @@ void setup()
   Serial.println(ESP.getFreeHeap()); //see how much space we have available in the ~400 KB RAM
 
   //client.setCACert(root_ca);  
-  client.setInsecure(); //worth trying to save space in flash?
+  client.setInsecure(); //accept any certificate: saves space in flash but enables MITM (idc)
   client.stop();
   Serial.println("\nStarting connection to server...");
   
@@ -45,7 +47,7 @@ void setup()
     if(client.connected()) {Serial.println("Still connected, receiving data:");}
     int length =0;
     char c = 0;
-    while (client.connected() && length < 10000) {
+    /*while (client.connected() && length < 10000) {
       c = client.read();
       if (c == 'H') break;
       if (length == 0) Serial.print("Skipping ");
@@ -54,14 +56,17 @@ void setup()
     }
     Serial.print(length);
     Serial.println(" empty characters");
-
-    char receivedData[10000];
+    */
+    //if (headerSkim()) Serial.print ("HTTP error: ");
+    //Serial.println(httpStatus);
+    /*char receivedData[10000];
     length = 0;
     int receivedLength = 0;
-    char prev_c = 0;
+    char prev_c = 0;*/
+    client.find("\r\n\r\n"); //skip headers Benoit's way
     setMarqueeText("(MARQUEE TEST)" LOKOMOTIVA);
-    bool receivingMarquee = false;
-    while (client.connected()) {
+
+   /* while (client.connected()) {
       String line = client.readStringUntil('\n');
       if (line == "\r")
       {
@@ -69,50 +74,72 @@ void setup()
           break;
       }
     }
+    */
     length = 0;
+    /*
     while (client.connected()) {
       c = client.read();
       receivedData[length] = c;
       if (!c) break;
       if (c==255) {receivedData[length] = 0; break;}
       Serial.print(c);
-    }
-   /*for (int i=0; i<16384; i++)
-    {
-      if (!receivedData[i]) break;
-      Serial.print(receivedData[i]);
     }*/
-    //DynamicJsonDocument doc(16384);
-    //DeserializationError err = deserializeJson(doc, *receivedData);
 
+    DynamicJsonDocument doc(16384);
+   // client.read(); //gets rid of leading [
+    
+  do {
+    // Deserialize the next post
+    DeserializationError err = deserializeJson(doc, client);
+    if (err) {
+      Serial.print("deserializeJson() failed with code ");
+      Serial.println(err.c_str());
+      client.stop();
+      return;
+    }
 
-    //deserializ(JsonBuffer, client);
+    //
 
-    // err = deserializeJson();
+	  //Serial.print("Stanice ");
+    //Serial.println(sname);
+    
+  } while (client.findUntil(",", "]"));
 
+  JsonObject table = doc[0];
+  const char* sname2 = table["head"]["value"];
+  Serial.print("Stanice ");
+  Serial.println(sname2);
+  const char* marqueeText2 = table["design"][0]["text"][0];
    // marqueeText += '\0';
-    Serial.println(marqueeText);
-    Serial.print(receivedLength);
-    Serial.println(" bytes received.");
+//  Serial.println(marqueeText);
+//  Serial.print(receivedLength);
+//  Serial.println(" bytes received.");
     //gimmeLocalTime();
     //tft.drawString(timeString, 16, 162, GFXFF);
 
     // http.end(); //Free resources
-    
+    JsonObject obj = doc.as<JsonObject>();
     prepareMarquee();
-
+    serializeJsonPretty(doc, Serial);
+    marqueeText = marqueeText2;
+    setMarqueeText(LOKOMOTIVA + marqueeText);
+    Serial.print(marqueeText2);
+    Serial.print(marqueeText);
+    sname = sname2;
+    tft.drawString("Stanice " + sname, 16, 0, GFXFF);
   }
   
-  gimmeLocalTime();
-  setMarqueeText(timeString);
+  
+  gimmeLocalTime(3);
+  //setMarqueeText(timeString);
 }
 
 void loop()
 {
   delay(27); //norm4
   // Serial.println(WiFi.localIP());
-  gimmeLocalTime();
-  setMarqueeText(timeString, false);
+  //gimmeLocalTime(3);
+  //setMarqueeText(timeString, false);
   //tft.drawString(timeString, 16, 162, GFXFF);
   updateRollingSum();
   delay(1);

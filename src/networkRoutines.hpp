@@ -62,6 +62,19 @@ void sendRequest(char* stationNumber, char* whichBoard)
   client.print(RQ_3END);
 }
 
+char httpStatus[32] = {0};
+int headerSkim()  //reads and ignores headers unless error response, in which case returns 1; read httpStatus
+{
+  client.readBytesUntil('\r', httpStatus, sizeof(httpStatus));
+  if (strcmp(httpStatus + 9, "200") != 0) {
+    Serial.print("Unexpected HTTP response: ");
+    Serial.println(httpStatus);
+    //client.stop();
+    return 1;
+  }
+  client.find('['); //start of JSON
+  return 0;
+}
 
 void gimmeLocalTime(int attempts = 3, int wait = 500)
 {

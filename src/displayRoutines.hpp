@@ -1,6 +1,7 @@
+#include <Arduino.h>
+
 #include <TFT_eSPI.h>       // Hardware-specific library
 TFT_eSPI tft = TFT_eSPI();  // Invoke custom library
-uint16_t
 
 #define GFXFF 1
 #include <../lib/TFT_eSPI/Fonts/Custom/Elektrocas_9U.h>

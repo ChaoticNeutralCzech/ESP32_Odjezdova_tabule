@@ -26,10 +26,10 @@ const char* root_ca = \
  "-----END CERTIFICATE-----\n";
 
 #define RQ_0HEAD_LENGTHIS \
-  "POST /mvitamin/info/getInformationPanel HTTP/1.1\n" \
+  "POST /mvitamin/info/getInformationPanel HTTP/1.0\n" \
   "Content-Type: application/json; charset=UTF-8\n" \
   "Host: m.vitamin.spravazeleznic.cz\n" \
-  "Connection: Keep-Alive\n" \
+  "Connection: Close\n" \
   "Accept: */*\n" \
   "User-Agent: esp32/" "0.0" "\n" \
   "Content-Length: "

@@ -7,7 +7,7 @@ const int resolution = 12;
 void setupPins(){
   pinMode(LUX_pin, INPUT);    //Photoresistor input
   pinMode(BL_pin, OUTPUT);    //BL_pin is output
-  digitalWrite(BL_pin, LOW);  //Turns off BL to save energy, later will be PWM-driven
+  digitalWrite(BL_pin, LOW);  //Turns off BL before display is initialized, later will be PWM-driven
 }
 
 int measureLight() {
