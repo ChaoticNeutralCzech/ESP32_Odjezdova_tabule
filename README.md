@@ -19,7 +19,7 @@ by showing the following on the display:
 
 The project does not work yet. Really, not at all. It's been a nightmare developing this for effing 6 weeks and seeing so little progress while facing countless errors and issues. Burnout, yeah!
 
-So far, the capabilities of the Wi-Fi client (clock sync over NTP and querying the API), ADC/DAC and LCD library are being tested: the current version will only
+So far, the capabilities of the Wi-Fi client (clock sync over NTP and querying the API), ADC/DAC and LCD library are being tested: the ~~current~~ first version *too lazy to actually update what the thing does rn* will only
 
 - display strings that test diacritics for relevant languages (CZ/SK/DE/PL/HU) on the LCD
 - fetch time over NTP and show a digital clock as a marquee (tests how much the LCD's lack of vsync & rotated VRAM (diagonal tearing) are an issue, as well as the response time of the screen (unfortunately excellent unlike the IRL STN's but the proof-of-concept animation shows how a transition effect can kinda overcome this) 
@@ -28,20 +28,20 @@ So far, the capabilities of the Wi-Fi client (clock sync over NTP and querying t
 
 ### TODO:
 
-- Parse the incoming JSON using the ArduinoJSON library.
-- Process the received data (adjust capitalization, shorten strings, extract marquee text...).
-- Display the data in a neat table with animation (flashing time, cycling through via stations...)
-- Update the displayed information every 60 seconds. Ideally, the marquee should keep scrolling smoothly while large parts of the display are being updated.
-- Implement the WatchDog, multithreading and low-energy mode for high stability and low energy consumption.
-- Detect and show/recover from basic errors (invalid settings, Wi-Fi disconnected, failed to obtain time...)
-- Add Wi-Fi server capabilities.
-- Create a HTML page for configuration and store it on the device.
-- Store settings in vEEPROM or SPIFFS and load them on boot. 
-- Add OSD that shows the device's SSID and configuration URL on boot / button press / touch detection, perhaps also some useful status information.
+- [X] Parse the incoming JSON using the ArduinoJSON library.
+- [X] Process the received data (adjust capitalization, shorten strings, extract marquee text...).
+- [ ] Display the data in a neat table with animation (flashing time, cycling through via stations...)
+- [ ] Update the displayed information every 60 seconds. Ideally, the marquee should keep scrolling smoothly while large parts of the display are being updated.
+- [ ] Implement the WatchDog, multithreading and low-energy mode for high stability and low energy consumption.
+- [ ] Detect and show/recover from basic errors (invalid settings, Wi-Fi disconnected, failed to obtain time...)
+- [ ] Add Wi-Fi server capabilities.
+- [ ] Create a HTML page for configuration and store it on the device.
+- [ ] Store settings in vEEPROM or SPIFFS and load them on boot. 
+- [ ] Add OSD that shows the device's SSID and configuration URL on boot / button press / touch detection, perhaps also some useful status information.
 
 ### Long-term goals outside the [MVP](https://en.wikipedia.org/wiki/Minimum_viable_product):
 
 - Support for more realistic and/or useful displays ([STN](https://www.aliexpress.com/item/2052440680.html)? *VGA*?) There seems to be enough RAM for a 1-bit 1024x768 frame buffer.
 - Support for departure boards by ELEN (LED) or Mobatime
 - Support for high-res boards (possibly scaled down (with subpixel antialiasing?) because no affordable display has sufficient pixel-density to display them at native resolution close to 1:87 scale), maybe even split-flap Pragotron when we're at it - might be lucrative because fans LOVE them
-- Support for other data sources (using SŽDC's API without prior consultation might be illegal, also model railways with their own schedules have custom controllers that could be interfaced with via serial)
+- Support for other data sources (using SŽDC's API without prior consultation might be illegal, also model railways with their own schedules have custom controllers that could be interfaced with via serial; considering [crws.cz](https://crws.docs.apiary.io/#reference/odjezdy-a-odjezdove-tabule/odjezdove-tabule), which is  also proprietary and needs keys but at least we have documentation)
