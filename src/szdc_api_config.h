@@ -1,5 +1,8 @@
-const char serverName[] = "m.vitamin.spravazeleznic.cz";
-#define PROJECT_VERSION "0.0"
+const char apiServer[] = "m.vitamin.spravazeleznic.cz";
+const char msgServer[] = "provoz.spravazeleznic.cz";
+#ifndef PROJECT_VERSION
+  #define PROJECT_VERSION "0.0"
+#endif
 const char* root_ca = \
 //We got this cert by exporting m.vitamin.spravazeleznic.cz's root cert in Jun23: DigiCert Global Root V2
  "-----BEGIN CERTIFICATE-----\n" \
@@ -44,3 +47,12 @@ const char* root_ca = \
 #define RQSEARCH_1QUERY "{\"search\":\""
 #define RQSEARCH_2END "\"}"
 
+#define RQMSG \
+  "POST /tabule/Pages/OG/JSMethod.aspx/GetMessage HTTP/1.0\n" \
+  "Content-Type: application/json; charset=UTF-8\n" \
+  "Host: provoz.spravazeleznic.cz\n" \
+  "Connection: Keep-Alive\n" \
+  "User-Agent: esp32/" "0.0" "\n" \
+  "Content-Length: 0\n\n"
+
+//curl --verbose "https://provoz.spravazeleznic.cz/tabule/Pages/OG/JSMethod.aspx/GetMessage" -X POST -H "User-Agent: esp/_._" -H "Content-Type: application/json; charset=utf-8" -H "Content-Length: 0"

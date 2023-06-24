@@ -62,6 +62,11 @@ void sendRequest(char* stationNumber, char* whichBoard)
   client.print(RQ_3END);
 }
 
+void sendMsgRequest()
+{
+  client.print(RQMSG);
+}
+
 char httpStatus[32] = {0};
 int headerSkim()  //reads and ignores headers unless error response, in which case returns 1; read httpStatus
 {
@@ -86,3 +91,8 @@ void gimmeLocalTime(int attempts = 3, int wait = 500)
   strftime(timeString, 10, "%H:%M:%S", &timeinfo);
 }
 
+String getMsg()
+{
+  client.find(":\"");
+  return client.readStringUntil('\"');
+}

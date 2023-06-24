@@ -10,7 +10,7 @@ TFT_eSPI tft = TFT_eSPI();  // Invoke custom library
 #define ELEKTROCAS8 &Pragotron_Infoline_8U
 #define LOKOMOTIVA "\xC2\x80\xC2\x81\xC2\x82"
 
-String marqueeText = "\xC2\x80 PŘÍLIŠ ŽLUŤOUČKÝ KŮŇ PĚL ĎÁBELSKÉ ÓDY ";
+String marqueeText = "DEFAULT MARQUEE TEXT";
 TFT_eSprite marqueeBitmap = TFT_eSprite(&tft);
 TFT_eSprite clockBitmap = TFT_eSprite(&tft);
 

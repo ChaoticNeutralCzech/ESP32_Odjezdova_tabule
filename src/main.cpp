@@ -4,11 +4,12 @@
 #include "displayRoutines.hpp"
 #include "networkRoutines.hpp"
 #include "settingsRoutines.hpp"
+#include "textparser.hpp"
 //#include "../lib/ArduinoJson-v6.21.2.hpp"
 #include <ArduinoJson.h>
 
 const char* downloadedPage[16384];
-char tempStation[10] = "5453613"; //temporary: the actual station code will be settable in the browser GUI
+char tempStation[10] = "5453613"; //"5453940"; //"5453120"; //temporary: the actual station code will be settable in the browser GUI //5453613
 char tempAD[10] = DEP;   //temporary: the actual arrival control will be part of the settings class
 String sname;
 void setup()
@@ -16,15 +17,14 @@ void setup()
   setupPins();
   Serial.begin(115200);
   connectToWifi();
-
   setupDisplay();
+  tft.drawString(UTFUppercase("Příliš žluťoučký kůň úpěl ďábelské ódy."), 16, 40, GFXFF);
+  tft.drawString(UTFUppercase("Vypätá dcéra grófa Maxwella s IQ nižším ako kôň núti "), 16, 53, GFXFF);
+  tft.drawString(UTFUppercase(" čeľaď hrýzť hŕbu jabĺk."), 16, 66, GFXFF);
+  tft.drawString(UTFUppercase("Stróż pchnął kość w quiz gędźb vel fax myjń."), 16, 79, GFXFF);
+  tft.drawString(UTFUppercase("Jörg bäckt quasi zwei Haxenfüße vom Wildpony."), 16, 92, GFXFF);
+  tft.drawString(UTFUppercase("Pál fogyó IQ-jú kun exvő, ím dühös a WC bűzért."), 16, 105, GFXFF);
   
-  tft.drawString("Příliš žluťoučký kůň úpěl ďábelské ódy.", 16, 40, GFXFF);
-  tft.drawString("Vypätá dcéra grófa Maxwella s IQ nižším ako kôň núti ", 16, 53, GFXFF);
-  tft.drawString(" čeľaď hrýzť hŕbu jabĺk.", 16, 66, GFXFF);
-  tft.drawString("Stróż pchnął kość w quiz gędźb vel fax myjń.", 16, 79, GFXFF);
-  tft.drawString("Jörg bäckt quasi zwei Haxenfüße vom Wildpony.", 16, 92, GFXFF);
-  tft.drawString("Pál fogyó IQ-jú kun exvő, ím dühös a WC bűzért.", 16, 105, GFXFF);
   ledcSetup(PWMchannel,freq,resolution);
   ledcAttachPin(BL_pin, PWMchannel);
   ledcWrite(PWMchannel, 0);
@@ -36,7 +36,7 @@ void setup()
   client.stop();
   Serial.println("\nStarting connection to server...");
   
-  if (!client.connect(serverName, 443))
+  if (!client.connect(apiServer, 443))
     Serial.println("Connection failed!");
   else {
     Serial.println("Connected to server!");
@@ -64,7 +64,7 @@ void setup()
     int receivedLength = 0;
     char prev_c = 0;*/
     client.find("\r\n\r\n"); //skip headers Benoit's way
-    setMarqueeText("(MARQUEE TEST)" LOKOMOTIVA);
+    //setMarqueeText("(MARQUEE TEST)" LOKOMOTIVA);
 
    /* while (client.connected()) {
       String line = client.readStringUntil('\n');
@@ -100,16 +100,13 @@ void setup()
 
     //
 
-	  //Serial.print("Stanice ");
-    //Serial.println(sname);
-    
-  } while (client.findUntil(",", "]"));
+    } while (client.findUntil(",", "]"));
 
-  JsonObject table = doc[0];
-  const char* sname2 = table["head"]["value"];
-  Serial.print("Stanice ");
-  Serial.println(sname2);
-  const char* marqueeText2 = table["design"][0]["text"][0];
+    JsonObject table = doc[0];
+    const char* snameCharx = table["head"]["value"];
+    Serial.print("Stanice ");
+    Serial.println(UTFUppercase(snameCharx));
+    const char* marqueeTextCharx = table["design"][0]["text"][0];
    // marqueeText += '\0';
 //  Serial.println(marqueeText);
 //  Serial.print(receivedLength);
@@ -121,15 +118,29 @@ void setup()
     JsonObject obj = doc.as<JsonObject>();
     prepareMarquee();
     serializeJsonPretty(doc, Serial);
-    marqueeText = marqueeText2;
-    setMarqueeText(LOKOMOTIVA + marqueeText);
-    Serial.print(marqueeText2);
-    Serial.print(marqueeText);
-    sname = sname2;
-    tft.drawString("Stanice " + sname, 16, 0, GFXFF);
+    //marqueeText = marqueeTextCharx;
+    setMarqueeText(LOKOMOTIVA + UTFUppercase(marqueeTextCharx, SHORTEN));
+    //sname = snameCharx;  + UTFUppercase(snameCharx))
+    tft.drawString("Stanice " + UTFUppercase(snameCharx, SHORTEN), 16, 0, GFXFF);
+    //free(tempPrefix); //it was only used for concatenation, now let's save space in heap (?)
   }
-  
-  
+  client.stop();
+  if (!client.connect(msgServer, 443))
+    Serial.println("Connection failed!");
+  else {
+    sendMsgRequest();
+    delay(500);
+    //headerSkim();
+    client.find("\r\n\r\n");
+    while (client.connected())
+    { 
+      char c = client.read();
+      if (c == 255) break;
+      Serial.print(c);
+
+      if (!c) delay(1);
+    }
+  }
   gimmeLocalTime(3);
   //setMarqueeText(timeString);
 }
