@@ -1,12 +1,12 @@
+
 #include <Arduino.h>
 #include "defaultSettings.hpp"
+#include "settingsRoutines.hpp"
 #include "brightnessRoutines.hpp"
 #include "displayRoutines.hpp"
-#include "networkRoutines.hpp"
-#include "settingsRoutines.hpp"
 #include "textparser.hpp"
-//#include "../lib/ArduinoJson-v6.21.2.hpp"
-#include <ArduinoJson.h>
+#include "networkRoutines.hpp"
+
 
 const char* downloadedPage[16384];
 char tempStation[10] = "5453613"; //"5453940"; //"5453120"; //temporary: the actual station code will be settable in the browser GUI //5453613
@@ -14,142 +14,178 @@ char tempAD[10] = DEP;   //temporary: the actual arrival control will be part of
 String sname;
 void setup()
 {
-  setupPins();
+  setupPins(); 
+  setBrightness(linearize(measureLight()));
+  setupDisplay();
+  tft.print("\n\n");
+  prepareClockFor(C_STATUS, C_SMALL, TFT_BLACK);
+  setClockText("Wi-Fi...");
+  printClock(false);
   Serial.begin(115200);
   connectToWifi();
-  setupDisplay();
-  tft.drawString(UTFUppercase("Příliš žluťoučký kůň úpěl ďábelské ódy."), 16, 40, GFXFF);
-  tft.drawString(UTFUppercase("Vypätá dcéra grófa Maxwella s IQ nižším ako kôň núti "), 16, 53, GFXFF);
-  tft.drawString(UTFUppercase(" čeľaď hrýzť hŕbu jabĺk."), 16, 66, GFXFF);
-  tft.drawString(UTFUppercase("Stróż pchnął kość w quiz gędźb vel fax myjń."), 16, 79, GFXFF);
-  tft.drawString(UTFUppercase("Jörg bäckt quasi zwei Haxenfüße vom Wildpony."), 16, 92, GFXFF);
-  tft.drawString(UTFUppercase("Pál fogyó IQ-jú kun exvő, ím dühös a WC bűzért."), 16, 105, GFXFF);
-  
-  ledcSetup(PWMchannel,freq,resolution);
-  ledcAttachPin(BL_pin, PWMchannel);
-  ledcWrite(PWMchannel, 0);
-  prepareNTP();
-  Serial.println(ESP.getFreeHeap()); //see how much space we have available in the ~400 KB RAM
+  setClockText("Server..."); printClock(false);
+  tft.print(smallNums("0123456789")); tft.print(bigNums(" 0123456789:")); 
+  //tft.println("\xC2\x80\xC2\x81\xC2\x82\xC2\x83\xC2\x84\xC2\x85\xC2\x86\xC2\x87\xC2\x88\xC2\x89\xC2\x8A\xC2\x90\xC2\x91\xC2\x92\xC2\x93\xC2\x94\xC2\x95\xC2\x96\xC2\x97\xC2\x98\xC2\x99\xC2\x9C\xC2\x9D\xC2\x9E");
+  //Serial.println("\xC2\x80\xC2\x81\xC2\x82\xC2\x83\xC2\x84\xC2\x85\xC2\x86\xC2\x87\xC2\x88\xC2\x89\xC2\x8A\xC2\x90\xC2\x91\xC2\x92\xC2\x93\xC2\x94\xC2\x95\xC2\x96\xC2\x97\xC2\x98\xC2\x99\xC2\x9C\xC2\x9D\xC2\x9E");
+  //tft.println(UTFUppercase("Příliš žluťoučký kůň úpěl ďábelské ódy.")/*, 16, 40, GFXFF*/);
+  //tft.println(UTFUppercase("Vypätá dcéra grófa Maxwella s IQ nižším ako kôň núti \n čeľaď hrýzť hŕbu jabĺk.")/*, 16, 53, GFXFF*/);
+  //tft.drawString(UTFUppercase(" čeľaď hrýzť hŕbu jabĺk."), 16, 66, GFXFF);
+  //tft.drawString(UTFUppercase("Stróż pchnął kość w quiz gędźb vel fax myjń."), 16, 79, GFXFF);
+  //tft.drawString(UTFUppercase("Jörg bäckt quasi zwei Haxenfüße vom Wildpony."), 16, 92, GFXFF);
+  //tft.drawString(UTFUppercase("Pál fogyó IQ-jú kun exvő, ím dühös a WC bűzért."), 16, 105, GFXFF);
 
-  //client.setCACert(root_ca);  
+  prepareNTP();
+  //Serial.println(ESP.getFreeHeap()); //see how much space we have available in the ~400 KB RAM
+  
+
+    //client.setCACert(root_ca);  
   client.setInsecure(); //accept any certificate: saves space in flash but enables MITM (idc)
   client.stop();
-  Serial.println("\nStarting connection to server...");
+  Serial.println("\nStarting connection to server..."); tft.println("Starting connection to server...");
+  const char* marqueeTextCharx;
+  String devMessage;
   
   if (!client.connect(apiServer, 443))
-    Serial.println("Connection failed!");
+    { Serial.println("Connection failed!"); tft.println("Connection failed!"); }
   else {
-    Serial.println("Connected to server!");
+    Serial.println("Sending request..."); tft.println("Sending request...");
+    setClockText("Request..."); printClock(false);
     sendRequest(tempStation, tempAD);
-    Serial.println("Request sent.");
-    
+    Serial.println("Request sent."); tft.println("Request sent.");
+    setClockText("Waiting..."); printClock(false);
     delay(500);   //probably should wait more, lol
     if(client.connected()) {Serial.println("Still connected, receiving data:");}
     int length =0;
     char c = 0;
-    /*while (client.connected() && length < 10000) {
-      c = client.read();
-      if (c == 'H') break;
-      if (length == 0) Serial.print("Skipping ");
-      length++;
+    /*while (client.connected()) {
+      if (client.read() == 'H') break;
       delay(1);
     }
+    client.find("\r\n\r\n"); //skip headers Benoit's way
     Serial.print(length);
     Serial.println(" empty characters");
     */
-    //if (headerSkim()) Serial.print ("HTTP error: ");
-    //Serial.println(httpStatus);
+    if (headerSkim()) {tft.print("HTTP error: ");
+    tft.println("HTTP " + *httpStatus);}
     /*char receivedData[10000];
     length = 0;
     int receivedLength = 0;
     char prev_c = 0;*/
-    client.find("\r\n\r\n"); //skip headers Benoit's way
+    
     //setMarqueeText("(MARQUEE TEST)" LOKOMOTIVA);
 
-   /* while (client.connected()) {
-      String line = client.readStringUntil('\n');
-      if (line == "\r")
-      {
-          Serial.println("headers received");
-          break;
-      }
-    }
-    */
-    length = 0;
     /*
     while (client.connected()) {
       c = client.read();
-      receivedData[length] = c;
       if (!c) break;
-      if (c==255) {receivedData[length] = 0; break;}
+      if (c==255) {break;}
       Serial.print(c);
-    }*/
-
-    DynamicJsonDocument doc(16384);
-   // client.read(); //gets rid of leading [
-    
-  do {
-    // Deserialize the next post
-    DeserializationError err = deserializeJson(doc, client);
-    if (err) {
-      Serial.print("deserializeJson() failed with code ");
-      Serial.println(err.c_str());
-      client.stop();
-      return;
     }
+    */
 
-    //
-
+    
+    do {
+    DeserializationError err = deserializeJson(doc, client);
+      if (err) {
+        Serial.print("deserializeJson() failed with code "); Serial.println(err.c_str());
+        tft.print("deserializeJson() failed with code "); tft.println(err.c_str());
+        prepareClockFor(C_STATUS, C_SMALL, TFT_RED);
+        setClockText(err.c_str()); printClock(false);
+        client.stop();
+        return;
+      }
     } while (client.findUntil(",", "]"));
 
-    JsonObject table = doc[0];
-    const char* snameCharx = table["head"]["value"];
+    const char* snameCharx = doc[0]["head"]["value"];
     Serial.print("Stanice ");
     Serial.println(UTFUppercase(snameCharx));
-    const char* marqueeTextCharx = table["design"][0]["text"][0];
+    tft.print("Stanice ");
+    tft.println(snameCharx);
+    //marqueeTextCharx = doc[0]["design"][0]["text"][0];
+    marqueeText = LOKOMOTIVA;
+    marqueeText += marqueeTextCharx; 
+    
    // marqueeText += '\0';
 //  Serial.println(marqueeText);
 //  Serial.print(receivedLength);
 //  Serial.println(" bytes received.");
-    //gimmeLocalTime();
-    //tft.drawString(timeString, 16, 162, GFXFF);
 
     // http.end(); //Free resources
-    JsonObject obj = doc.as<JsonObject>();
-    prepareMarquee();
+    //JsonObject obj = doc.as<JsonObject>();
+    //prepareMarquee();
     serializeJsonPretty(doc, Serial);
-    //marqueeText = marqueeTextCharx;
-    setMarqueeText(LOKOMOTIVA + UTFUppercase(marqueeTextCharx, SHORTEN));
-    //sname = snameCharx;  + UTFUppercase(snameCharx))
-    tft.drawString("Stanice " + UTFUppercase(snameCharx, SHORTEN), 16, 0, GFXFF);
-    //free(tempPrefix); //it was only used for concatenation, now let's save space in heap (?)
+    //setMarqueeText(LOKOMOTIVA + *marqueeTextCharx);
+    //tft.drawString("Stanice " + UTFUppercase(snameCharx, SHORTEN), 16, 0, GFXFF);
   }
   client.stop();
+  setClockText("Time..."); printClock(false);
+  gimmeLocalTime();
+  setClockText("Msg..."); printClock(false);
   if (!client.connect(msgServer, 443))
     Serial.println("Connection failed!");
   else {
     sendMsgRequest();
     delay(500);
     //headerSkim();
-    client.find("\r\n\r\n");
-    while (client.connected())
+    client.find("\"d\":\"");
+    /*while (client.connected())
     { 
       char c = client.read();
       if (c == 255) break;
       Serial.print(c);
 
       if (!c) delay(1);
-    }
+    }*/
+    devMessage = client.readStringUntil('"');
+    Serial.println(devMessage);
   }
+  client.stop();
+  //prepareNTP;
+  setClockText("Syncing..."); printClock(false);
   gimmeLocalTime(3);
-  //setMarqueeText(timeString);
+  if (clockSync) prepareClockFor(C_TIME);
+  else prepareClockFor(C_STATUS, clockSize, TFT_BLACK);
+  jsonToTable();
+  prepareMarquee();
+  setMarqueeText(marqueeText);
 }
+
+int framesAfterSecond = 0;
+int lastMillis = 999;
 
 void loop()
 {
   delay(27); //norm4
   // Serial.println(WiFi.localIP());
-  //gimmeLocalTime(3);
+  framesAfterSecond++;
+  int nowMillis = millis() % 1000;
+  if (nowMillis < lastMillis) framesAfterSecond = 0;
+  lastMillis = nowMillis; 
+  if(framesAfterSecond == 0)
+  {
+    gimmeLocalTime(1, 0);
+    prepareClockFor(C_TIME);
+    setClockText(timeStringForClock(true));
+    printClock(true);
+  }
+  if(framesAfterSecond == 3) printClock(false);
+  if(framesAfterSecond == 15)
+  {
+    setClockText(timeStringForClock(false));
+    printClock(false);
+  }
+  if(framesAfterSecond == 16 && timeinfo.tm_sec == 16)
+  {
+    prepareClockFor(C_STATUS, C_SMALL, TFT_RED);
+    setClockText("SYNCING...");
+    printClock(true);
+  }
+    if(framesAfterSecond == 19 && timeinfo.tm_sec == 16)
+  {
+    prepareClockFor(C_STATUS, C_SMALL, TFT_RED);
+    printClock(false);
+  }
+
   //setMarqueeText(timeString, false);
   //tft.drawString(timeString, 16, 162, GFXFF);
   updateRollingSum();
@@ -159,8 +195,10 @@ void loop()
   updateRollingSum();
   delay(3);
   light = updateRollingSum();
-  int bright = (light*light/3340-27*light/10+6077);
-  setBrightness(bright);
+  setBrightness(linearize(light));
+ //Serial.println(bright);
+
+
   //Serial.print(light);
   //Serial.print("\t->\t");
   //Serial.println(bright);
@@ -168,5 +206,3 @@ void loop()
   //tft.fillRect(0,140,8,14,0x0000);
   //tft.fillRect(312,140,8,14,0x0000);
 }
-
-
