@@ -1,8 +1,10 @@
 const char apiServer[] = "m.vitamin.spravazeleznic.cz";
 const char msgServer[] = "provoz.spravazeleznic.cz";
 #ifndef PROJECT_VERSION
-  #define PROJECT_VERSION "0.0"
+  #define PROJECT_VERSION "Compilation error"
 #endif
+#define API_COPYRIGHT "Using data from SŽDC's VITAMIN API (like the Infotabule app)"
+
 const char* root_ca = \
 //We got this cert by exporting m.vitamin.spravazeleznic.cz's root cert in Jun23: DigiCert Global Root V2
  "-----BEGIN CERTIFICATE-----\n" \

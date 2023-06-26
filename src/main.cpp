@@ -1,4 +1,5 @@
 
+#define PROJECT_VERSION "0.0"
 #include <Arduino.h>
 #include "defaultSettings.hpp"
 #include "settingsRoutines.hpp"
@@ -17,14 +18,18 @@ void setup()
   setupPins(); 
   setBrightness(linearize(measureLight()));
   setupDisplay();
-  tft.print("\n\n");
+  //printHeader();
   prepareClockFor(C_STATUS, C_SMALL, TFT_BLACK);
   setClockText("Wi-Fi...");
   printClock(false);
   Serial.begin(115200);
   connectToWifi();
   setClockText("Server..."); printClock(false);
-  tft.print(smallNums("0123456789")); tft.print(bigNums(" 0123456789:")); 
+  //tft.println(UTFLowercase("JIŘÍ BOUDA, PORTA BOHEMICA, ROŽMBERK, LETNÍ KOMETA"));
+  //tft.println(UTFLowercase("DNY NATOOOO, PRAHA-VÍDEŇ, JAN PERNER, EXPRES PÁLAVA-PODYJÍ"));
+  //tft.println(UTFLowercase("LETNÍ KOMETA, DONAU MOLDAU, HORÁCKÝ EXPRES, PŘEROVSKÝ ZUBR"));
+  //tft.println(UTFLowercase("JIŽNÍ EXPRES, REGIO JET, BRNĚNSKÝ DRAK, ČESKÝ LES, A-STAR"));
+  //tft.print(smallNums("0123456789")); tft.println(bigNums(" 0123456789:")); 
   //tft.println("\xC2\x80\xC2\x81\xC2\x82\xC2\x83\xC2\x84\xC2\x85\xC2\x86\xC2\x87\xC2\x88\xC2\x89\xC2\x8A\xC2\x90\xC2\x91\xC2\x92\xC2\x93\xC2\x94\xC2\x95\xC2\x96\xC2\x97\xC2\x98\xC2\x99\xC2\x9C\xC2\x9D\xC2\x9E");
   //Serial.println("\xC2\x80\xC2\x81\xC2\x82\xC2\x83\xC2\x84\xC2\x85\xC2\x86\xC2\x87\xC2\x88\xC2\x89\xC2\x8A\xC2\x90\xC2\x91\xC2\x92\xC2\x93\xC2\x94\xC2\x95\xC2\x96\xC2\x97\xC2\x98\xC2\x99\xC2\x9C\xC2\x9D\xC2\x9E");
   //tft.println(UTFUppercase("Příliš žluťoučký kůň úpěl ďábelské ódy.")/*, 16, 40, GFXFF*/);
@@ -48,10 +53,10 @@ void setup()
   if (!client.connect(apiServer, 443))
     { Serial.println("Connection failed!"); tft.println("Connection failed!"); }
   else {
-    Serial.println("Sending request..."); tft.println("Sending request...");
+    Serial.println("Sending request..."); //tft.println("Sending request...");
     setClockText("Request..."); printClock(false);
     sendRequest(tempStation, tempAD);
-    Serial.println("Request sent."); tft.println("Request sent.");
+    Serial.println("Request sent."); //tft.println("Request sent.");
     setClockText("Waiting..."); printClock(false);
     delay(500);   //probably should wait more, lol
     if(client.connected()) {Serial.println("Still connected, receiving data:");}
@@ -97,9 +102,11 @@ void setup()
     } while (client.findUntil(",", "]"));
 
     const char* snameCharx = doc[0]["head"]["value"];
-    Serial.print("Stanice ");
+    Serial.print("Station ");
     Serial.println(UTFUppercase(snameCharx));
-    tft.print("Stanice ");
+    const char* direction = tempAD;
+    tft.print(UTFLowercase(direction));
+    tft.print(" board at ");
     tft.println(snameCharx);
     //marqueeTextCharx = doc[0]["design"][0]["text"][0];
     marqueeText = LOKOMOTIVA;
@@ -137,14 +144,15 @@ void setup()
       if (!c) delay(1);
     }*/
     devMessage = client.readStringUntil('"');
-    Serial.println(devMessage);
+    if(devMessage.length() > 1) tft.println(devMessage);
   }
   client.stop();
   //prepareNTP;
+  tft.print("Syncing time...");
   setClockText("Syncing..."); printClock(false);
   gimmeLocalTime(3);
-  if (clockSync) prepareClockFor(C_TIME);
-  else prepareClockFor(C_STATUS, clockSize, TFT_BLACK);
+  if (clockSync) {prepareClockFor(C_TIME); tft.print("The time is "); tft.println(&timeinfo, "%d.%m.%Y %H:%M:%S");}
+  else {prepareClockFor(C_STATUS, clockSize, TFT_BLACK); tft.println("Failed to obtain time");}
   jsonToTable();
   prepareMarquee();
   setMarqueeText(marqueeText);
@@ -183,6 +191,7 @@ void loop()
     if(framesAfterSecond == 19 && timeinfo.tm_sec == 16)
   {
     prepareClockFor(C_STATUS, C_SMALL, TFT_RED);
+    setClockText("SYNCING...");
     printClock(false);
   }
 

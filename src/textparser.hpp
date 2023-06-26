@@ -1,13 +1,15 @@
 #include <Arduino.h>
 #define SHORTEN 1
-String utfUpper = "TEST";
+//String utfUpper = "TEST";
 String UTFUppercase(String inputString, bool shorten = 0)  //converts UTF-8 CZ/SK/PL/DE/HU to uppercase
 {
     int stringLength = sizeof(inputString);
+    Serial.print(inputString);
+    Serial.print(" > ");
     String outputString;
     for (int i=0; true; i++)
     {
-        //if(strcmp(inputString))
+
         char c = inputString[i]; 
         if (c & 0x80)   //this is a 2-byte UTF-8 char!
         {
@@ -27,27 +29,29 @@ String UTFUppercase(String inputString, bool shorten = 0)  //converts UTF-8 CZ/S
         } else {        //this is an ASCII char
             if (c >= 0x61 && c <= 0x7a)     // ASCII a-z
                 c = c & 0xdf;               // ASCII A-Z
-            outputString += c;
+            if (c) outputString += c;
         }
         if (!c) 
         {   
-            outputString += '\0';
+            //outputString += '\0';
             break;                           //end of string
         }
     }
     if(shorten)
         {
-            outputString.replace(" HLAVNÍ", " HL.N.\xFD"); // \xFD never occurs in Central European UTF-8, used here to mark \0
-            outputString.replace(" HLAVNÁ", " HL.ST.\xFD");
-            outputString.replace(" GLÓW", " GL.\xFD");
-            outputString.replace(" ZASTÁVKA", " ZAST.\xFD");
-            outputString.replace(" (", "\xFD");
-            outputString.replace(" MASARYK", " MAS.N.\xFD");
+            outputString.replace(" HLAVNÍ", " HL.N.\xF0"); // \xF0 never occurs in CentrEU UTF-8, used to mark \0 (F0 = future NULL)
+            outputString.replace(" HLAVNÁ", " HL.ST.\xF0");
+            outputString.replace(" GL", " GL.\xF0");
+            outputString.replace(" ZASTÁVKA", " ZAST.\xF0");
+            outputString.replace(" (", "\xF0");
+            outputString.replace(" MASARYK", " MAS.N.\xF0");
             outputString.replace("HRADEC ", "HR.");
-            //outputString.replace(" U ", " U ");
-            outputString.replace(" POD ", " P.\xFE.");     // \xFE never occurs in Central European UTF-8, used here to mark n.X.
-            outputString.replace(" NAD ", " N.\xFE.");     // \xFE never occurs in Central European UTF-8, used here to mark n.X.
-            int a = outputString.indexOf('\xFE');         //replacing " nad Xyzerou" with " n.X.\0"
+            outputString.replace(" U ", " U\xF1");
+            outputString.replace(" V ", " V\xF1");
+            outputString.replace(" NA ", " \xFA\xF2.");
+            outputString.replace(" POD ", " P.\xF2.");     // \xF2 never occurs in Central European UTF-8, used here to mark n.X.
+            outputString.replace(" NAD ", " N.\xF2.");     // \xF2 never occurs in Central European UTF-8, used here to mark n.X.
+            int a = outputString.indexOf('\xF2');         //replacing " nad Xyzerou" with " n.X.\0"
             if( a != -1 ) 
             {   
                 outputString.setCharAt(a, outputString.charAt(a+2));
@@ -64,13 +68,149 @@ String UTFUppercase(String inputString, bool shorten = 0)  //converts UTF-8 CZ/S
                 if (b != -1)
                 {
                     outputString.remove(a+2, b-a-1);
-                } else outputString.setCharAt(a+2, '\0');
+                } else outputString.remove(a+2, outputString.length()-a-2);
+                outputString.replace("\xFA", "N.");
             }
-            outputString.replace('\xFD', '\0');
-            //a = outputString.indexOf("\xFD");
-            //if (a != -1) outputString.setCharAt(a, '\0');
+            a = outputString.indexOf('\xF1');         //replacing " v Podkrkonoší" with " v1Podkrkonoší" and " v P.0"
+            if( a != -1 ) 
+            {   
+                outputString.setCharAt(a, ' '); //clear flag
+                if(outputString.charAt(a+1) & 0x80) a++;
+                outputString.setCharAt(a+2, '.');
+                int b, p;
+                b = outputString.indexOf('-', a+2);
+                p = outputString.indexOf(' ', a+2);
+                if (b == -1 || p < b && p != -1) b = p; 
+                if (b != -1)
+                {
+                    outputString.remove(a+3, b-a-2);
+                } else outputString.remove(a+3, 99/*outputString.length()-a-2*/);
+            }
+            
+            //outputString.replace('\xF0', '\0');  //WARNING! THIS DOES NOT ACTUALLY SHORTEN A String! FOLLOWING LINES ARE NEEDED
+            a = outputString.indexOf("\xF0");
+            if (a != -1) 
+            { 
+                outputString.remove(a, 99/*outputString.length()-a-2*/);
+            }
         }
+
+    Serial.println(outputString);
     return outputString;
+}
+
+String smallNums(const char* inputString) //change all numbers of input into small (7pt) ones for the Elektročas font
+{
+    char c = 1;
+    String outputString;
+    int i = 0;
+    do 
+    {
+        c = inputString[i];
+        if (c >= '0' && c <= '9') {outputString += char(0xc2); outputString += char(c + 0x60);}
+        else outputString += char(c);
+        i++;
+    }
+    while (c);
+    return outputString;
+}
+
+String bigNums(const char* inputString) //change all numbers + colons of input into big (10pt) ones for the Elektročas font
+{
+    char c = 1;
+    String outputString;
+    int i, j = 0;
+    do 
+    {
+        c = inputString[i];
+        if (c >= '0' && c <= ':') {outputString += char(0xc2); outputString += char(c + 0x50);}
+        else outputString += char(c);
+        i++;
+    }
+    while (c);
+    return outputString;
+}
+
+String UTFLowercase(const char* inputString)    //TODO, does not work yet: convert TRAINAMES to lowercase (Title Case \after UTF-8-2\RegioJet)
+{
+    int stringLength = sizeof(inputString);
+    String outputString;
+    uint8_t keepUppercase = 2;
+    char c = 1;
+    for (int i=0; c; i++)
+    {
+        c = inputString[i];
+        if(keepUppercase == 1 && (c == ' ' || c == '-')) keepUppercase = 2;
+        if(keepUppercase == 1 && (c != ' ' && c != '-')) keepUppercase = 0;
+        if(keepUppercase < 2)
+        { 
+            if (c > 0xC0)   //this is a 2-byte UTF-8 char!
+            {
+                i++;                          //we don't need ya now
+                char d = inputString[i];
+                outputString += c;
+                if (c == 0xc3) d = d | 0x20;  //3rd bitplane (+32)
+                if ((c == 0xc4 && d < 0xb8) || (c == 0xc5 && d > 0x89 && d < 0xb8)) d = d | 0x01;  //higher bitplane (+1 if even)
+                if ((c == 0xc4 && d > 0xb8) || (c == 0xc5 && (d < 0x89 || d > 0xb8))) d = (d + 1) & 0xfe;  //anomaly: +1 if odd
+                if ((d == 0xad) && (i == 5) && (inputString[0] == 'J')) keepUppercase = 1; else keepUppercase = 0; //Jiří _
+                outputString += d;
+            } else {        //this is an ASCII char
+                if (c >= 'A' && c <= 'Z')     // ASCII A-Z
+                    c = c | 0x20;             // ASCII a-z
+                outputString += c;
+                if ((c == 'y') && (i == 2)) keepUppercase = 8; else keepUppercase = 1;
+            }
+        } else //keep uppercase, just print it
+        {
+            outputString += c;
+            if(c < 0xC0 && c != ' ' && c != '-') keepUppercase -= 2; //this is not the first of a 2-byte character or space
+        }
+        
+        if (!c) 
+        {   
+            //outputString += '\0';     //actually unneccessary
+            break;                           //end of string
+        }
+    }
+    return outputString;
+}
+String stringifyAbsTime(int minutes)
+{
+    String outputString = "";
+    if(minutes/60 < 10 && tableTimeLeadingZero) outputString += '0';
+    outputString += minutes/60;
+    outputString += ':';
+    if(minutes%60 < 10) outputString += '0';
+    outputString += minutes%60;
+    return outputString;
+}
+
+String fancifyTrainType(const char* inputString)
+{
+    String outputString = inputString; 
+    outputString.replace("EC", "\xC2\x9C");
+    outputString.replace("IC", "\xC2\x9D");
+    outputString.replace("SC", "\xC2\x9E");
+    return outputString;
+}
+
+int guessTrainSpeed(char* inputType)
+{
+    if(!strcmp(inputType, "EC")) return 2;
+    if(!strcmp(inputType, "IC")) return 2;
+    if(!strcmp(inputType, "SC")) return 2;
+    if(!strcmp(inputType, "EN")) return 2;
+    if(!strcmp(inputType, "rj")) return 2;
+    if(!strcmp(inputType, "Ex")) return 2;
+    if(!strcmp(inputType, "RJ")) return 2;
+    if(!strcmp(inputType, "RJET")) return 2;
+    if(!strcmp(inputType, "LET")) return 2;
+    if(!strcmp(inputType, "LE")) return 2;
+    
+    if(!strcmp(inputType, "R")) return 1;
+    if(!strcmp(inputType, "Rx")) return 1;
+
+    return 0; //Os, Sp, BUS, ARR, TLX...
 }
 
 /*

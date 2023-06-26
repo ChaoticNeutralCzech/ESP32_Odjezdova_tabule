@@ -205,3 +205,81 @@ void printLine(tableLine thisLine){
       if (!receivedData[i]) break;
       Serial.print(receivedData[i]);
     }*/
+
+
+    #define JSON_TABLE doc[0]["design"][0]["textOrTrain"]
+void jsonToTable()
+{
+  int jsonRow = 0;
+  const char* charX;
+  for (int row = 0; row < TABLE_LINES; row++)
+  {
+    table[row].schTimeMin = (JSON_TABLE[jsonRow]["time"]["value"].as<int>())/60000+60+(timeinfo.tm_isdst)*60;
+    table[row].schTime = stringifyAbsTime(table[row].schTimeMin);
+
+    table[row].delayMin = JSON_TABLE[jsonRow]["delay"].as<int>();
+    table[row].delayString = table[row].delayMin;
+
+    if(JSON_TABLE[jsonRow]["predict"])      //delayed
+    {
+      table[row].actTimeMin = (JSON_TABLE[jsonRow]["predict"]["value"].as<int>())/60000+60+(timeinfo.tm_isdst)*60;
+      table[row].actTime = stringifyAbsTime(table[row].actTimeMin);
+      if(JSON_TABLE[jsonRow]["predict"]["cancel"])    //cancelled string, null if not
+      {
+        table[row].actTime = table[row].delayString = JSON_TABLE[jsonRow]["predict"]["cancel"].as<char*>();
+      }
+    } else 
+    {
+      table[row].actTimeMin = table[row].schTimeMin;
+      table[row].actTime = table[row].schTime;
+    }
+
+    charX = JSON_TABLE[jsonRow]["type"].as<char*>(); table[row].trainType = charX;
+    
+    table[row].trainNumber = smallNums(JSON_TABLE[jsonRow]["number"].as<char*>());
+    table[row].trainName = UTFLowercase(JSON_TABLE[jsonRow]["name"].as<char*>());
+    charX = JSON_TABLE[jsonRow]["company"].as<char*>(); table[row].trainCompany = charX;
+    charX = JSON_TABLE[jsonRow]["line"].as<char*>(); table[row].trainLine = charX;
+    table[row].terminus = UTFUppercase(JSON_TABLE[jsonRow]["destination"].as<char*>(), true);
+    
+    if (JSON_TABLE[jsonRow]["direction"]) //could be NULL
+    {
+      table[row].viaNum = JSON_TABLE[jsonRow]["direction"]["station"].size(); //num of via st's/msg pages (those are also ["station"]s)
+      if (table[row].viaNum > 6) table[row].viaNum = 6;
+      for (int i = 0; i < table[row].viaNum; i++)
+      {
+        Serial.print(" - ");
+        charX = JSON_TABLE[jsonRow]["direction"]["station"][i].as<char*>(); table[row].via[i] = charX;
+        Serial.print(table[row].via[i]);
+      } 
+    }  else
+    {
+      table[row].viaNum = 0;
+    }
+    table[row].viaState = 0;
+
+    charX = JSON_TABLE[jsonRow]["platform"].as<char*>(); table[row].platform = charX;
+    charX = JSON_TABLE[jsonRow]["track"].as<char*>(); table[row].track = charX; 
+    table[row].track.trim(); //removes leading and trailing whitespace
+    if (JSON_TABLE[jsonRow]["sector"])  //most don't specify sector
+    {
+      
+      charX = JSON_TABLE[jsonRow]["sector"].as<char*>(); String sector = charX;
+      sector.trim();
+      table[row].track += " ";
+      table[row].track += sector;   //in this implementation, sector is part of line
+    }
+
+    if(JSON_TABLE[jsonRow]["text"] && noteLines)  //there is a note and we are processing notes
+    {
+      row++;  //advance to next row
+      table[row].isNote = true;
+      Serial.print(table[row].note = JSON_TABLE[jsonRow]["text"].as<String>());
+    } else
+    {
+      table[row].isNote = false;
+      table[row].note = "";
+    }
+    jsonRow++;
+  }
+}

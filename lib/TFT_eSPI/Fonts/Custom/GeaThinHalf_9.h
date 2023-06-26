@@ -1,4 +1,4 @@
-const uint8_t ElektrocasGeaThinHalf-9_Bitmap[] PROGMEM = {
+const uint8_t ElektrocasGeaThinHalf_9_Bitmap[] PROGMEM = {
 	// Bitmap Data:
 	0b11111001, 0b10011001, 0b10011001, 0b10011001, 0b11110000, // zero
 	0b00100110, 0b10100010, 0b00100010, 0b00100010, 0b01110000, // one
@@ -14,7 +14,7 @@ const uint8_t ElektrocasGeaThinHalf-9_Bitmap[] PROGMEM = {
 	0b00000000, // semicolon
 };
 
-const GFXglyphElektrocasGeaThinHalf-9Glyphs[] PROGMEM = {
+const GFXglyph ElektrocasGeaThinHalf_9Glyphs[] PROGMEM = {
 	// bitmap  wid  hei  x    x    y
   // Offset, th , ght, Adv, Ofs, Ofs
 	{     0,   4,   9,   5,   0,  -9,  }, // zero
@@ -30,5 +30,5 @@ const GFXglyphElektrocasGeaThinHalf-9Glyphs[] PROGMEM = {
 	{    50,   1,   4,   5,   2,  -6,  }, // colon
 	{    51,   1,   1,   5,   4,  -1,  }, // semicolon (space)
 };
-const GFXfont ElektrocasGeaThinHalf-9 PROGMEM = {
-(uint8_t  *)ElektrocasGeaThinHalf-9_Bitmap,(GFXglyph *)ElektrocasGeaThinHalf-9Glyphs, 48, 59, 9};
+const GFXfont ElektrocasGeaThinHalf_9 PROGMEM = {
+(uint8_t  *)ElektrocasGeaThinHalf_9_Bitmap,(GFXglyph *)ElektrocasGeaThinHalf_9Glyphs, 48, 59, 9};
