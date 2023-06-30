@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head> <meta charset="UTF-8">
+	<style>
+		* {font-family: Helvetica, Nimbus Sans, Liberation Sans, sans-serif; color: #fff;}
+		body  {display:grid; margin-top: -40px; place-items:center; background-color: #000}
+		p, table {margin-bottom: 20px}
+		
+		td, p {background-color: #25f; font-family: Bahnschrift, Segoe UI, Noto Sans; padding: 0px 10px}
+		p {padding: 2px 10px}
+		input[type=checkbox] {transform: scale(1.5); width: 50%; background: #ff0; margin-left: -21%}
+		.s:active {border: 5px green; background-color: yellow}
+		.i, input[type=button] {accent-color: #25f; background-color: #25f; font-size: 12pt; border: none}
+		.i {width: 98%; padding: 3px}
+		th{padding-left: 10px; padding-top: 10px; text-align: left;}
+		#b {position:relative; display:grid; place-items:center; background-color: #111; max-width: 520px; padding: 20px; margin-top: 15vh; border-radius: 8px; box-shadow:inset 0px 0px 0px 8px #aaa;}
+		#b:before, #b:after, #b>:first-child:before, #b>:first-child:after {
+			position:absolute;
+			border:#0006 solid 5px;
+			content:' '
+		}
+		#b:before {top:0;left:0;border-width: 10px 10px 0 0}
+		#b:after {top:0;right:0;border-width: 10px 10px 0 0}
+		#b>:first-child:before {bottom:0;right:0;border-width: 0 10px 10px 0}
+		#b>:first-child:after {bottom:0;left:0;border-width: 0 0 10px 10px}
+	</style>
+
+
+</head>
+<body style="display:grid; margin-top: -40px; place-items:center; background-color: #000">
+	<div id="b">
+	<h2 id="je">JS error</h2>
+	
+
+	<table id = "tb" style="width:100%; border-spacing: 0px">
+	  <tr>
+		<th>Search by station name:</th>
+	  </tr>
+	  <tr>
+		<td><input id="q", class="i", type="text" value="" style="width: 500px; border: none; margin: 0px; padding: 5px"></td>
+	  </tr>
+
+	  
+	</table>
+
+	<input type="button" id="sb" style="background-color:#25f; width: 200px; height: 40px; border-radius: 4px;" value="Search">
+<script>
+document.getElementById("je").innerText = "STATION PICKER";
+//var inputs;
+//inputs = document.getElementsByTagName('input');	
+//inputs[0].addEventListener('change', handleChange);
+t = document.getElementById("tb");
+function submitForm() {
+	console.log("d");
+	sb.style.backgroundColor = "white";
+	var jd = {};
+	var tb = document.getElementById("q");
+	var query = tb.value;
+	console.log(JSON.stringify({"search": query}));
+	fetch('https://m.vitamin.spravazeleznic.cz/mvitamin/stations/searchStation', {
+		method: 'POST',
+		//mode: 'no-cors',
+		headers: {
+			'Origin': 'szdc.cz',
+			'Access-Control-Allow-Origin': '*',
+			'Content-Type': 'application/json, charset=UTF-8',
+			'Accept': '*/*',
+			
+		},
+		body: JSON.stringify({"search": query})
+	})
+   .then(response => {response.json(); alert(JSON.stringify(response))})
+   .then(response => console.log(JSON.stringify(response)))
+   
+	//stList = JSON.parse(response);
+	Object.entries(response).forEach(entry => {
+		var sname = entry.stationName;
+		var snum = entry.sr70;
+		
+		var r = t.insertRow(-1);
+		var kc = r.insertCell(0); var vc = r.insertCell(1);
+	
+		kc.innerText = entry.stationName;
+		vc.innerText = entry.sr70;
+		if(!entry.updatedDeparture) r.style = "color: #89f";
+	});
+	
+	/*
+	var xr = new XMLHttpRequest();
+	var fd = new FormData(f);
+	xr.open('POST','http://8.8.8.8/s');
+	xr.setRequestHeader("Content-Type", "application/json");
+	*/
+	return false;
+}
+
+sb = document.getElementById("sb");
+sb.onclick = function() {
+	submitForm();
+}
+
+
+</script>
+
+</body>
+</html>
