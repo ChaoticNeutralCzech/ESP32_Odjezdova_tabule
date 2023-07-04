@@ -1,6 +1,18 @@
 # ESP32_Odjezdova_tabule
 
 **Goal:** A tabletop or wall-mounted display for a railway fan's room or train station model. A small screen shows a table of train departures/arrivals stylized to look like an Elektročas board but at a smaller scale. Uses the ESP32's Wi-Fi capabilities to fetch up-to-date data from m.vitamin.spravazeleznic.cz (API also used by SŽDC's [official Android app](https://play.google.com/store/apps/details?id=cz.cdis.vitamin&hl=en_US)). Settings are adujsted in a HTML page from a Wi-Fi-enabled device.
+    
+     (                                                                             
+     )\ )                (                        (                             )  
+    (()/(    (   )     ( )\            (  (     ( )\   (  (               (  ( /(  
+     /(_))  ))\ /((   ))((_)(  `  )   ))\ )(    )((_) ))\ )(   (     (   ))\ )\()) 
+    (_))_  /((_|_))\ /((_)  )\ /(/(  /((_|()\  ((_)_ /((_|()\  )\ )  )\ /((_|_))/  
+     |   \(_)) _)((_|_))| |((_|(_)_\(_))  ((_)  | _ |_))( ((_)_(_/( ((_|_))(| |_   
+     | |) / -_)\ V // -_) / _ \ '_ \) -_)| '_|  | _ \ || | '_| ' \)) _ \ || |  _|  
+     |___/\___| \_/ \___|_\___/ .__/\___||_|    |___/\_,_|_| |_||_|\___/\_,_|\__|  
+                              |_|                                                  
+    Sorry, please wait before the developer sorts some of his life issues before
+    code for version 0.1 is committed. It is mostly done but needs some testing.
 
 Version 1.0, the minimum viable product, should imitate this screen at Uherské Hradiště railway station  
 ![](https://d34-a.sdn.cz/d_34/c_img_QQ_y/th6ID0.jpeg) ![](https://raw.githubusercontent.com/ChaoticNeutralCzech/myRandomImages/main/ytyGax.jpg)  
@@ -25,11 +37,11 @@ The project does not work yet. Really, not at all. It's been a nightmare develop
 - [X] Parse the incoming JSON using the ArduinoJSON library.
 - [X] Process the received data (adjust capitalization, shorten strings, extract marquee text...).
 - [X] Display the data in a neat table with animation (flashing time, cycling through via stations...)
-- [ ] Update the displayed information every 60 seconds. Ideally, the marquee should keep scrolling smoothly while large parts of the display are being updated.
-- [ ] Implement the WatchDog, multithreading and low-energy mode for high stability and low energy consumption.
+- [X] Update the displayed information every 60 seconds. Ideally, the marquee should keep scrolling smoothly while large parts of the display are being updated.
+- [X] Implement the WatchDog, multithreading and low-energy mode for high stability and low energy consumption.
 - [X] Detect and show/recover from basic errors (invalid settings, Wi-Fi disconnected, failed to obtain time...)
 - [X] Add Wi-Fi server capabilities.
-- [ ] Create a HTML page for configuration and store it on the device.
+- [X] Create a HTML page for configuration and store it on the device.
 - [X] Store settings in vEEPROM or SPIFFS and load them on boot. 
 - [X] Add OSD that shows the device's SSID and configuration URL on boot / button press / touch detection, perhaps also some useful status information.
 
