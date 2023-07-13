@@ -1,6 +1,10 @@
 # ESP32_Odjezdova_tabule
 
 **Goal:** A tabletop or wall-mounted display for a railway fan's room or train station model. A small screen shows a table of train departures/arrivals stylized to look like an Elektročas board but at a smaller scale. Uses the ESP32's Wi-Fi capabilities to fetch up-to-date data from m.vitamin.spravazeleznic.cz (API also used by SŽDC's [official Android app](https://play.google.com/store/apps/details?id=cz.cdis.vitamin&hl=en_US)). Settings are adujsted in a HTML page from a Wi-Fi-enabled device.
+
+### Current state
+
+![](https://raw.githubusercontent.com/ChaoticNeutralCzech/ESP32_Odjezdova_tabule/master/SamplePic.jpg)
     
      (                                                                             
      )\ )                (                        (                             )  
@@ -18,7 +22,7 @@ Version 1.0, the minimum viable product, should imitate this screen at Uherské 
 ![](https://d34-a.sdn.cz/d_34/c_img_QQ_y/th6ID0.jpeg) ![](https://raw.githubusercontent.com/ChaoticNeutralCzech/myRandomImages/main/ytyGax.jpg)  
 by showing the following on the display:  
 ![](https://raw.githubusercontent.com/ChaoticNeutralCzech/myRandomImages/main/Odjezdy_UH_PoC3.gif)  
-("DEMO" because this very much does not actually work yet.)
+"DEMO" because this ~~very much does not actually work yet.~~ is a proof-of-concept render.
 
 ### Hardware:
 
