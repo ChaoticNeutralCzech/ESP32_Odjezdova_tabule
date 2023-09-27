@@ -468,20 +468,6 @@ void updateTableAsync( /*void * pvParameters */)
 #define SSID "ESP32_Board"
 #endif
 
-const char *softAP_ssid = SSID;
-
-// The access points IP address and net mask
-// It uses the default Google DNS IP address 8.8.8.8 to capture all 
-// Android dns requests
-IPAddress apIP(8, 8, 8, 8);
-IPAddress netMsk(255, 255, 255, 0);
-
-// DNS server 
-const byte DNS_PORT = 53; 
-DNSServer dnsServer;
-
-// Web server
-WebServer server(80);
 
 // check if this string is an IP address
 boolean isIp(String str) {
@@ -521,6 +507,20 @@ void handleRoot() {
     return;
   }
   server.sendHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+  const char *softAP_ssid = SSID;
+
+  // The access points IP address and net mask
+  // It uses the default Google DNS IP address 8.8.8.8 to capture all 
+  // Android dns requests
+  IPAddress apIP(8, 8, 8, 8);
+  IPAddress netMsk(255, 255, 255, 0);
+
+  // DNS server 
+  const byte DNS_PORT = 53; 
+  DNSServer dnsServer;
+
+  // Web server
+  WebServer server(80);
   server.sendHeader("Pragma", "no-cache");
   server.sendHeader("Expires", "-1");
 
@@ -554,13 +554,7 @@ void handleNotFound() {
 }
 
 void captiveportal() {
-  delay(1000);
-  Serial.begin(115200);
-    setupPins(); 
-  setBrightness(linearize(measureLight()));
-  setupDisplay();
-  switchTextMode(true);
-  printHeader();
+
 
 
   Serial.println();
